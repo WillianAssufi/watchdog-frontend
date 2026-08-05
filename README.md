@@ -1,16 +1,50 @@
-# React + Vite
+# Watchdog — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web em **React** para o **[Watchdog](https://github.com/WillianAssufi/monitoramento-servicos)**, uma API de monitoramento de serviços. Este frontend consome a API para gerenciar os serviços monitorados (cadastrar, listar, atualizar e remover), enquanto a observabilidade do time fica no Grafana do backend.
 
-Currently, two official plugins are available:
+> Projeto separado do backend (arquitetura *polyrepo*): o backend é a API + banco + observabilidade; este repositório é apenas o cliente web que a consome.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- [React 19](https://react.dev/)
+- [Vite](https://vite.dev/) (dev server com HMR e build)
+- JavaScript
+- ESLint
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
+CRUD de serviços consumindo a API:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [x] **Listar** serviços (`GET /servicos`)
+- [x] **Cadastrar** serviço (`POST /servicos`)
+- [x] **Remover** serviço (`DELETE /servicos/{id}`)
+- [ ] **Atualizar** serviço (`PATCH /servicos/{id}`) — em desenvolvimento
+- [ ] Melhorias de layout e navegação — em desenvolvimento
+
+## Pré-requisitos
+
+- [Node.js](https://nodejs.org/) 18+ (desenvolvido com a v24)
+- A **API do Watchdog rodando** em `http://localhost:8000`. Veja as instruções no [repositório do backend](https://github.com/WillianAssufi/monitoramento-servicos) (sobe com `docker compose up`).
+
+> O backend precisa liberar o CORS para a origem do frontend (`http://localhost:5173`). Isso já está configurado no `main.py` da API via `CORSMiddleware`.
+
+## Como rodar
+
+```bash
+# 1. Instalar as dependências
+npm install
+
+# 2. Subir o servidor de desenvolvimento
+npm run dev
+```
+
+Acesse `http://localhost:5173` no navegador. Certifique-se de que a API esteja rodando em paralelo.
+
+## Scripts disponíveis
+
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Sobe o servidor de desenvolvimento (com hot-reload) |
+| `npm run build` | Gera a build de produção na pasta `dist/` |
+| `npm run preview` | Serve localmente a build de produção |
+| `npm run lint` | Roda o ESLint no projeto |
