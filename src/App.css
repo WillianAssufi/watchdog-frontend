@@ -112,13 +112,55 @@
   z-index: 20;
 }
 
-.modal {
+.modal { 
   background-color: var(--bg);
   padding: 24px;
   border-radius: 8px;
   border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 320px;
 }
 
+.modal input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 8px;
+  justify-content:  flex-end;
+}
+
+.salvar-button {
+  background-color:  var(--accent-border);
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.salvar-button:hover {
+  background-color: var(--accent);
+}
+
+.cancelar-button {
+  background-color:  #871616;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancelar-button:hover {
+  background-color: #b62020;
+}
 .menu {
   position: absolute;
   top: 0;

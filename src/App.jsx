@@ -77,6 +77,8 @@ function App() {
     await buscarServicos()
   }
 
+  const [servicoRemovendo, setServicoRemovendo] = useState(null)
+
   return (
     <div>
       {/* TOPO DO FRONT */}
@@ -139,7 +141,7 @@ function App() {
                       </td>
                       <td>
                         <button className="atualizar-button" onClick={() => setServicoEditando(servico)}>Editar</button>
-                        <button className="remover-button" onClick={() => deletarServico(servico.id)}>Remover</button>
+                        <button className="remover-button" onClick={() => setServicoRemovendo(servico)}>Remover</button>
                       </td>
                     </tr>
                   ))}
@@ -149,6 +151,22 @@ function App() {
           )}
         </main>
       </div>
+      {servicoRemovendo && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h2>Excluir serviço</h2>
+            <p>
+              Tem certeza que deseja excluir "{servicoRemovendo.nome}"? Todo o histórico
+              de métricas coletadas será perdido. Se quiser apenas pausar o monitoramento,
+              mude o serviço para <strong>Inativo</strong>.
+            </p>
+            <div className="modal-acoes">
+              <button className="cancelar-button" onClick={() => setServicoRemovendo(null)}>Cancelar</button>
+              <button className="salvar-button" onClick={() => {deletarServico(servicoRemovendo.id); setServicoRemovendo(null)}}>Confirmar exclusão</button>
+            </div>
+          </div>
+        </div>
+      )}
       {servicoEditando && (
         <div className="modal-backdrop">
           <div className="modal">
@@ -156,8 +174,10 @@ function App() {
             <input value={servicoEditando.nome} onChange={(e) => setServicoEditando({ ...servicoEditando, nome: e.target.value })} />
             <input value={servicoEditando.url} onChange={(e) => setServicoEditando({ ...servicoEditando, url: e.target.value })} />
             <input type="number" value={servicoEditando.intervalo_minutos} onChange={(e) => setServicoEditando({ ...servicoEditando, intervalo_minutos: e.target.value })} />
-            <button onClick={() => setServicoEditando(null)}>Cancelar</button>
-            <button onClick={salvarEdicao}>Salvar</button>
+            <div className="modal-acoes">
+              <button className="salvar-button" onClick={salvarEdicao}>Salvar</button>
+              <button className="cancelar-button" onClick={() => setServicoEditando(null)}>Cancelar</button>
+            </div>
           </div>
         </div>
       )}
