@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { FiEdit, FiTrash2 } from "react-icons/fi"
 
 import "./App.css"
 
@@ -107,9 +108,9 @@ function App() {
           {/* TELA: ADICIONAR SERVIÇO */}
           {view === "adicionar" && (
             <form onSubmit={criarServico} className="form-servico">
-              <input placeholder="Nome do Serviço" value={nome} onChange={(e) => setNome(e.target.value)} />
-              <input placeholder="URL: https://exemplo.com/" value={url} onChange={(e) => setUrl(e.target.value)} />
-              <input placeholder="Intervalo em Minutos" type="number" value={intervaloMinutos} onChange={(e) => setIntervaloMinutos(e.target.value)} />
+              <input placeholder="Nome do Serviço" required value={nome} onChange={(e) => setNome(e.target.value)} />
+              <input placeholder="URL: https://exemplo.com/" type="url" required value={url} onChange={(e) => setUrl(e.target.value)} />
+              <input placeholder="Intervalo em Minutos" type="number" required min="1" value={intervaloMinutos} onChange={(e) => setIntervaloMinutos(e.target.value)} />
               <p>
                 <button className="add-button" type="submit">ADICIONAR</button>
               </p>
@@ -137,11 +138,18 @@ function App() {
                       <td>{servico.url}</td>
                       <td>{servico.intervalo_minutos}</td>
                       <td>
-                        <button className="ativo-button" onClick={() => alternarAtivo(servico)}>{servico.ativo ? "Ativo" : "Inativo"}</button>
+                        <label className="switch">
+                          <input
+                            type="checkbox"
+                            checked={servico.ativo}
+                            onChange={() => alternarAtivo(servico)}
+                          />
+                          <span className="slider"></span>
+                        </label>
                       </td>
                       <td>
-                        <button className="atualizar-button" onClick={() => setServicoEditando(servico)}>Editar</button>
-                        <button className="remover-button" onClick={() => setServicoRemovendo(servico)}>Remover</button>
+                        <button className="atualizar-button" onClick={() => setServicoEditando(servico)}><FiEdit /></button>
+                        <button className="remover-button" onClick={() => setServicoRemovendo(servico)}><FiTrash2 /></button>
                       </td>
                     </tr>
                   ))}
@@ -162,7 +170,7 @@ function App() {
             </p>
             <div className="modal-acoes">
               <button className="cancelar-button" onClick={() => setServicoRemovendo(null)}>Cancelar</button>
-              <button className="salvar-button" onClick={() => {deletarServico(servicoRemovendo.id); setServicoRemovendo(null)}}>Confirmar exclusão</button>
+              <button className="salvar-button" onClick={() => { deletarServico(servicoRemovendo.id); setServicoRemovendo(null) }}>Confirmar exclusão</button>
             </div>
           </div>
         </div>
