@@ -66,6 +66,17 @@ function App() {
     setServicoEditando(null)
   }
 
+  async function alternarAtivo(servico) {
+    await fetch(`http://localhost:8000/servicos/${servico.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ativo: !servico.ativo
+      })
+    })
+    await buscarServicos()
+  }
+
   return (
     <div>
       {/* TOPO DO FRONT */}
@@ -123,7 +134,9 @@ function App() {
                       <td>{servico.nome}</td>
                       <td>{servico.url}</td>
                       <td>{servico.intervalo_minutos}</td>
-                      <td>{servico.ativo}</td>
+                      <td>
+                        <button className="ativo-button" onClick={() => alternarAtivo(servico)}>{servico.ativo ? "Ativo" : "Inativo"}</button>
+                      </td>
                       <td>
                         <button className="atualizar-button" onClick={() => setServicoEditando(servico)}>Editar</button>
                         <button className="remover-button" onClick={() => deletarServico(servico.id)}>Remover</button>
