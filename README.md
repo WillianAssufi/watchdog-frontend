@@ -4,6 +4,12 @@ Interface web em **React** para o **[Watchdog](https://github.com/WillianAssufi/
 
 > Projeto separado do backend (arquitetura *polyrepo*): o backend é a API + banco + observabilidade; este repositório é apenas o cliente web que a consome.
 
+## Sobre este projeto
+
+Este frontend nasceu de uma necessidade prática: gerenciar os serviços monitorados (criar, editar, remover, ativar/desativar) de forma rápida, **sem precisar recorrer à documentação Swagger da API** a cada operação.
+
+Meu foco de estudo e atuação é o **backend** — é onde está minha profundidade. Frontend e, principalmente, estilização não são minha área forte. Por isso, na construção desta interface contei com **bastante apoio de IA**, sobretudo na parte visual/CSS. Ainda assim, a lógica, a estrutura e vários toques pessoais de UX passaram por mim — como as ações de editar/remover por linha, a confirmação antes de excluir (avisando sobre a perda do histórico de métricas) e o toggle de ativo/inativo.
+
 ## Stack
 
 - [React 19](https://react.dev/)
@@ -17,9 +23,11 @@ CRUD de serviços consumindo a API:
 
 - [x] **Listar** serviços (`GET /servicos`)
 - [x] **Cadastrar** serviço (`POST /servicos`)
-- [x] **Remover** serviço (`DELETE /servicos/{id}`)
-- [ ] **Atualizar** serviço (`PATCH /servicos/{id}`) — em desenvolvimento
-- [ ] Melhorias de layout e navegação — em desenvolvimento
+- [x] **Atualizar** serviço via modal de edição (`PATCH /servicos/{id}`)
+- [x] **Remover** serviço com modal de confirmação (`DELETE /servicos/{id}`)
+- [x] **Ativar/desativar** serviço com toggle (`PATCH /servicos/{id}`)
+- [x] **Filtrar** serviços por nome
+- [x] Layout com menu de navegação, ícones e tema escuro
 
 ## Pré-requisitos
 
