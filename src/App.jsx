@@ -27,7 +27,7 @@ function App() {
       body: JSON.stringify({
         nome: nome,
         url: url,
-        intervalo_minutos: Number(intervaloMinutos),
+        intervalo_minutos: Number(intervaloMinutos)
       })
     })
     await buscarServicos()
@@ -50,6 +50,21 @@ function App() {
 
   const [view, setView] = useState("listar")
   const [menuAberto, setMenuAberto] = useState(false)
+  const [servicoEditando, setServicoEditando] = useState(null)
+
+  async function salvarEdicao() {
+    await fetch(`http://localhost:8000/servicos/${servicoEditando.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nome: servicoEditando.nome,
+        url: servicoEditando.url,
+        intervalo_minutos: Number(servicoEditando.intervalo_minutos)
+      })
+    })
+    buscarServicos()
+    setServicoEditando(null)
+  }
 
   return (
     <div>
@@ -110,7 +125,7 @@ function App() {
                       <td>{servico.intervalo_minutos}</td>
                       <td>{servico.ativo}</td>
                       <td>
-                        <button className="atualizar-button" onClick={() => atualizarServico(servico.id)}>Editar</button>
+                        <button className="atualizar-button" onClick={() => setServicoEditando(servico)}>Editar</button>
                         <button className="remover-button" onClick={() => deletarServico(servico.id)}>Remover</button>
                       </td>
                     </tr>
@@ -121,6 +136,18 @@ function App() {
           )}
         </main>
       </div>
+      {servicoEditando && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h2>Editar Serviço</h2>
+            <input value={servicoEditando.nome} onChange={(e) => setServicoEditando({ ...servicoEditando, nome: e.target.value })} />
+            <input value={servicoEditando.url} onChange={(e) => setServicoEditando({ ...servicoEditando, url: e.target.value })} />
+            <input type="number" value={servicoEditando.intervalo_minutos} onChange={(e) => setServicoEditando({ ...servicoEditando, intervalo_minutos: e.target.value })} />
+            <button onClick={() => setServicoEditando(null)}>Cancelar</button>
+            <button onClick={salvarEdicao}>Salvar</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
