@@ -27,6 +27,7 @@ CRUD de serviços consumindo a API:
 - [x] **Remover** serviço com modal de confirmação (`DELETE /servicos/{id}`)
 - [x] **Ativar/desativar** serviço com toggle (`PATCH /servicos/{id}`)
 - [x] **Filtrar** serviços por nome
+- [x] **Status de cada serviço** na listagem — No ar / Fora do ar / Aguardando, vindo da última verificação do scheduler
 - [x] Layout com menu de navegação, ícones e tema escuro
 
 ## Pré-requisitos

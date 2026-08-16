@@ -3,6 +3,12 @@ import { FiEdit, FiTrash2 } from "react-icons/fi"
 
 import "./App.css"
 
+const ROTULOS_STATUS = {
+  UP: "No ar",
+  DOWN: "Fora do ar",
+  AGUARDANDO: "Aguardando"
+}
+
 function App() {
   const [servicos, setServicos] = useState([])
 
@@ -125,6 +131,7 @@ function App() {
                 <thead>
                   <tr>
                     <th>Nome</th>
+                    <th>Status</th>
                     <th>URL</th>
                     <th>Intervalo (Min)</th>
                     <th>Estado do Serviço</th>
@@ -135,6 +142,11 @@ function App() {
                   {servicosFiltrados.map((servico) => (
                     <tr key={servico.id}>
                       <td>{servico.nome}</td>
+                      <td>
+                        <span className={`status status-${(servico.status || "AGUARDANDO").toLowerCase()}`}>
+                          {ROTULOS_STATUS[servico.status] || ROTULOS_STATUS.AGUARDANDO}
+                        </span>
+                      </td>
                       <td>{servico.url}</td>
                       <td>{servico.intervalo_minutos}</td>
                       <td>
